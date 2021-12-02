@@ -1,0 +1,219 @@
+<?= $this->extend('admin/templates/index'); ?>
+
+
+
+<?= $this->section('konten'); ?>
+<div class="section-header">
+
+
+
+    <button type="button" class="btn btn-icon icon-left btn-primary" data-toggle="modal" data-target="#tambahdata">
+        <i class="far fa-edit"></i> Tambah Data
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tambahdata" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form" action="<?= route_to('register') ?>" method="POST">
+                    <?= csrf_field(); ?>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Tambah Data user</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?= view('Myth\Auth\Views\_message_block') ?>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control <?php if (session('errors.username')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.username') ?>" value="<?= old('username') ?>" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control <?php if (session('errors.email')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>" placeholder="<?= lang('Auth.email') ?>" value="<?= old('email') ?>" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control <?php if (session('errors.password')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.password') ?>" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Password Confirm</label>
+                            <input type="password" name="pass_confirm" class="form-control <?php if (session('errors.pass_confirm')) : ?>is-invalid<?php endif ?>" placeholder="<?= lang('Auth.repeatPassword') ?>" required="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Data user</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" id="table-1">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    #
+                                </th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Level</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1; ?>
+                            <?php foreach ($users as $user) : ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= $user->email ?></td>
+                                    <td><?= $user->username ?></td>
+                                    <td><?= $user->name ?></td>
+
+                                    <td>
+                                        <!-- <button data-id="null" class="hapus btn btn-danger btn-sm"><i class="fas fa-trash-alt    "></i> Hapus</button> -->
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit<?= $no ?> ">
+                                            <i class="fas fa-edit    "></i> Edit
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modal-edit<?= $no ?>" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <form id="form-edit<?= $no ?>">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Edit Data</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <input type="hidden" value="id" name="id_user" class="form-control" required="">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input type="text" name="email" value="<?= $user->email ?>" class="form-control" required="">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Username</label>
+                                                                <input type="text" name="username" value="<?= $user->username ?>" class="form-control" required="">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>Ubah Password</label>
+                                                                <input type="password" name="password" class="form-control">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <script>
+                                $('#form-edit<?= $no ?>').submit(function(e) {
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'mod_user/crud_user.php?pg=ubah',
+                                        data: $(this).serialize(),
+                                        success: function(data) {
+                                            if (data == 'OK') {
+                                                iziToast.success({
+                                                    title: 'OKee!',
+                                                    message: 'Data Berhasil diubah',
+                                                    position: 'topRight'
+                                                });
+                                                setTimeout(function() {
+                                                    window.location.reload();
+                                                }, 2000);
+                                                $('#modal-edit<?= $no ?>').modal('hide');
+                                            } else {
+                                                iziToast.error({
+                                                    title: 'Maaf!',
+                                                    message: 'Data Gagal ditambahkan atau username sudah ada',
+                                                    position: 'topRight'
+                                                });
+                                            }
+
+                                            //$('#bodyreset').load(location.href + ' #bodyreset');
+                                        }
+                                    });
+                                    return false;
+                                });
+                            </script>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function() {
+        $("#txtConfirmPassword").keyup(function() {
+            var password = $("#txtNewPassword").val();
+            $("#divCheckPasswordMatch").html(password == $(this).val() ? "Passwords match." : "Passwords do not match!");
+        });
+
+    });
+
+
+
+    $('#table-1').on('click', '.hapus', function() {
+        var id = $(this).data('id');
+        console.log(id);
+        swal({
+            title: 'Are you sure?',
+            text: 'Akan menghapus data ini!',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: 'mod_user/crud_user.php?pg=hapus',
+                    method: "POST",
+                    data: 'id_user=' + id,
+                    success: function(data) {
+
+                        iziToast.success({
+                            title: 'Horee!',
+                            message: 'Data Berhasil dihapus',
+                            position: 'topRight'
+                        });
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 2000);
+
+                    }
+                });
+            }
+        })
+
+    });
+</script>
+<?= $this->endSection(); ?>
