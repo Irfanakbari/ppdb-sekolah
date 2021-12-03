@@ -27,10 +27,25 @@
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>Daftar Ulang</h4>
+                    <h4>Pending</h4>
                 </div>
                 <div class="card-body">
-                    34
+                    <?= $pending ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+        <div class="card card-statistic-1">
+            <div class="card-icon bg-success">
+                <i class="fas fa-check"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Diterima</h4>
+                </div>
+                <div class="card-body">
+                    <?= $diterima ?>
                 </div>
             </div>
         </div>
@@ -38,7 +53,7 @@
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-warning">
-                <i class="far fa-file"></i>
+                <i class="fas fa-users"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
@@ -54,25 +69,45 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-success">
-                <i class="fas fa-circle"></i>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Detail Pendaftar</h4>
+                <div class="card-header-action">
+
+                </div>
             </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>Online Users</h4>
+            <div class="card-body ">
+                <div class="mb-4">
+                    <div class="text-medium float-right font-weight-bold text-muted"><?= $sisa ?> Orang</div>
+                    <div class="font-weight-bold mb-1">Persentase Kuota</div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: <?= ($pendaftar / $sisa) * 100 ?>%;" aria-valuenow="<?= ($pendaftar / $sisa) * 100 ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    899
+                <div class="mb-4">
+                    <div class="text-medium float-right font-weight-bold text-muted"><?= $pria ?> Orang</div>
+                    <div class="font-weight-bold mb-1">Laki-Laki</div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $pria ?>%;" aria-valuenow="<?= $pria ?>" aria-valuemin="0" aria-valuemax="<?= $sisa ?>"></div>
+                    </div>
                 </div>
+                <div class="mb-4">
+                    <div class="text-medium float-right font-weight-bold text-muted"><?= $wanita ?> Orang</div>
+                    <div class="font-weight-bold mb-1">Perempuan</div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?= $wanita ?>%;" aria-valuenow="<?= $wanita ?>" aria-valuemin="0" aria-valuemax="<?= $sisa ?>"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
-<div class="row">
 
-    <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h4>Data Statistik Asal Sekolah</h4>
@@ -94,71 +129,66 @@
                             </tr>
                         </thead>
                         <tbody class="ui-sortable">
+                            <?php $no = 1; ?>
+                            <?php $index = 0; ?>
+                            <?php foreach ($sekol as $sekolah) : ?>
+                                <tr>
+                                    <td>
+                                        <div class="sort-handler ui-sortable-handle">
+                                            <center> <i class="fas fa-th"></i></center>
+                                        </div>
+                                    </td>
+                                    <td>null</td>
+                                    <td><?= $sekolah ?></td>
 
-                            <tr>
-                                <td>
-                                    <div class="sort-handler ui-sortable-handle">
-                                        <i class="fas fa-th"></i>
-                                    </div>
-                                </td>
-                                <td>36</td>
-                                <td>hddh</td>
-
-                                <td>
-                                    <div class="badge badge-success">3653</div>
-                                </td>
-                            </tr>
+                                    <td>
+                                        <div class="badge badge-success"><?= $jumlah[$index++] ?></div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h4>INFO KUOTA</h4>
+                <h4>Info Kuota</h4>
             </div>
             <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Jenjang</th>
-                            <th>Peminat</th>
-                            <th>Sisa Kuota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td scope="row">364</td>
-                            <td>346</td>
-                            <td>344</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Jurusan</th>
-                            <th>Peminat</th>
-                            <th>Sisa Kuota</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                            <td scope="row">7567</td>
-                            <td>6757</td>
-                            <td>677</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" id="sortable-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    <center> <i class="fas fa-th"></i></center>
+                                </th>
+                                <th>Jurusan</th>
+                                <th>Kuota</th>
+                            </tr>
+                        </thead>
+                        <tbody class="ui-sortable">
+                            <?php $no = 1; ?>
+                            <?php foreach ($kuota as $jurusan) : ?>
+                                <tr>
+                                    <td>
+                                        <center> <?= $no++ ?></center>
+                                    </td>
+                                    <td><?= $jurusan['nama_jurusan'] ?></td>
+                                    <td>
+                                        <div class="badge badge-success"><?= $jurusan['kuota'] ?></div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+    <div class="col-lg-12 col-md-12 col-12 col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h4>Data Statistik Sekolah Tujuan</h4>

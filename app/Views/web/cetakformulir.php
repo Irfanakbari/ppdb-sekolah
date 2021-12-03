@@ -124,7 +124,7 @@
                             <div class="row">
                                 <div class="col-12 animated bounceIn">
                                     <div class="card">
-                                        <div class="card-header center">
+                                        <div class="card-header">
                                             <center>
                                                 <h3>Halaman Cetak Formulir</h3>
                                             </center>
@@ -139,6 +139,7 @@
                                                     </div>
                                                 </div>
                                         </div>
+
                                         <div class="card-footer">
                                             <button id='btnsimpan' type="submit" class="btn btn-lg btn-primary">CETAK FORMULIR</button>
                                         </div>

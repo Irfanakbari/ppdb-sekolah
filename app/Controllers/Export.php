@@ -84,6 +84,5 @@ class Export extends BaseController
 
         // output the generated pdf
         $dompdf->stream($filename);
-        return redirect()->to('/');
     }
 }

@@ -40,6 +40,7 @@ $routes->get('/pengumuman', 'Web::pengumuman');
 $routes->get('/cetakformulir', 'Web::cetakpdf');
 $routes->get('/printpdf', 'Web::printpdf');
 $routes->get('/web/home', 'Web::home');
+$routes->get('/web/sekolah', 'Web::getsekolah');
 $routes->get('/web/pendaftaran', 'Web::pendaftaran');
 $routes->get('/web/pengumuman', 'Web::pengumuman');
 $routes->get('/web/cetakformulir', 'Web::cetakpdf');

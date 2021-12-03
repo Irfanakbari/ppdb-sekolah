@@ -34,12 +34,12 @@ class Crud extends BaseController
                 [
                     'no_daftar' => 'PPDB2021',
                     'nik' => $this->request->getVar('nik'),
-                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
-                    // 'asal_sekolah' => $this->request->getVar('asal_sekolah'),
+                    'nama_lengkap' => ucwords($this->request->getVar('nama_lengkap')),
+                    'asal_sekolah' => strtoupper($this->request->getVar('asal_sekolah')),
                     'jenkel' => $this->request->getVar('jenkel'),
                     'jurusan' => $this->request->getVar('jurusan'),
                     'no_hp' => $this->request->getVar('no_hp'),
-                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tempat_lahir' => ucwords($this->request->getVar('tempat_lahir')),
                     'tgl_lahir' => $this->request->getVar('tgl_lahir')
                 ]
 
@@ -76,8 +76,7 @@ class Crud extends BaseController
             sleep(1); #do not delete!
 
             session()->setFlashdata('pesan', 'Data Berhasil Dikirim');
-            redirect()->to('/');
-            return  redirect()->to('/export/formpdf/' . $this->request->getVar('nik'));
+            return redirect()->to('/');
         } catch (\Throwable $th) {
             session()->setFlashdata('failed', $th->getMessage());
             return redirect('/');
@@ -159,10 +158,10 @@ class Crud extends BaseController
     public function updatependaftar($id)
     {
         $data = [
-            'nama_lengkap' => $this->request->getVar('nama'),
-            'asal_sekolah' => $this->request->getVar('asal'),
+            'nama_lengkap' => ucwords($this->request->getVar('nama')),
+            'asal_sekolah' => strtoupper($this->request->getVar('asal')),
             'jurusan' => $this->request->getVar('jurusan'),
-            'tempat_lahir' => $this->request->getVar('tempat'),
+            'tempat_lahir' => ucwords($this->request->getVar('tempat')),
             'tgl_lahir' => $this->request->getVar('tgllahir'),
             'baju' => $this->request->getVar('baju'),
             'nisn' => $this->request->getVar('nisn'),
@@ -176,31 +175,31 @@ class Crud extends BaseController
             'berat' => $this->request->getVar('berat'),
             'status_keluarga' => $this->request->getVar('statuskeluarga'),
             'no_kip' => $this->request->getVar('kip'),
-            'alamat' => $this->request->getVar('alamat'),
+            'alamat' => ucwords($this->request->getVar('alamat')),
             'rt' => $this->request->getVar('rt'),
             'rw' => $this->request->getVar('rw'),
-            'provinsi' => $this->request->getVar('provinsi'),
-            'kota' => $this->request->getVar('kabupaten'),
-            'kecamatan' => $this->request->getVar('kecamatan'),
-            'desa' => $this->request->getVar('desa'),
+            'provinsi' => ucwords($this->request->getVar('provinsi')),
+            'kota' => ucwords($this->request->getVar('kota')),
+            'kecamatan' => ucwords($this->request->getVar('kecamatan')),
+            'desa' => ucwords($this->request->getVar('desa')),
             'kode_pos' => $this->request->getVar('kodepos'),
             'tinggal' => $this->request->getVar('tinggal'),
             'jarak' => $this->request->getVar('jarak'),
-            'nama_ayah' => $this->request->getVar('namaayah'),
-            'nama_ibu' => $this->request->getVar('namaibu'),
+            'nama_ayah' => ucwords($this->request->getVar('namaayah')),
+            'nama_ibu' => ucwords($this->request->getVar('namaibu')),
             'nik_ayah' => $this->request->getVar('nikayah'),
             'nik_ibu' => $this->request->getVar('nikibu'),
-            'tempat_ayah' => $this->request->getVar('tempatayah'),
-            'tempat_ibu' => $this->request->getVar('tempatibu'),
+            'tempat_ayah' => ucwords($this->request->getVar('tempatayah')),
+            'tempat_ibu' => ucwords($this->request->getVar('tempatibu')),
             'tgl_lahir_ayah' => $this->request->getVar('tglayah'),
             'tgl_lahir_ibu' => $this->request->getVar('tglibu'),
             'pendidikan_ayah' => $this->request->getVar('pendidikan_ayah'),
             'pendidikan_ibu' => $this->request->getVar('pendidikan_ibu'),
             'no_hp_ayah' => $this->request->getVar('nohpayah'),
             'no_hp_ibu' => $this->request->getVar('nohpibu'),
-            'nama_wali' => $this->request->getVar('namawali'),
+            'nama_wali' => ucwords($this->request->getVar('namawali')),
             'nik_wali' => $this->request->getVar('nikwali'),
-            'tempat_wali' => $this->request->getVar('tempatwali'),
+            'tempat_wali' => ucwords($this->request->getVar('tempatwali')),
             'tgl_lahir_wali' => $this->request->getVar('tgllahirwali'),
             'pendidikan_wali' => $this->request->getVar('pendidikanwali'),
             'no_hp_wali' => $this->request->getVar('nohpwali'),

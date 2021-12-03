@@ -38,12 +38,20 @@ class Web extends BaseController
     }
     public function home()
     {
-        $data['setting'] = $this->settingModel->find(1);
 
+        $data['setting'] = $this->settingModel->find(1);
         $data['kuota'] = $this->jurusanModel->findAll();
         $data['syarat'] = $this->settingModel->find(1);
         $data['count'] = $this->pendaftarModel->countAll();
         $data['kontak'] = $this->kontakModel->findAll();
+        $db = \Config\Database::connect();
+        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $data['sekolah'] = array();
+        $data['jumlah'] = array();
+        foreach ($builder as $sekola) {
+            array_push($data['sekolah'], $sekola['asal_sekolah']);
+            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+        }
         return view('web/home', $data);
     }
     public function pendaftaran()
@@ -99,5 +107,17 @@ class Web extends BaseController
         $dompdf->stream($filename);
 
         return redirect()->to('/');
+    }
+    public function getsekolah()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $data['sekolah'] = array();
+        $data['jumlah'] = array();
+        foreach ($builder as $sekola) {
+            array_push($data['sekolah'], $sekola['asal_sekolah']);
+            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+        }
+        dd($data);
     }
 }

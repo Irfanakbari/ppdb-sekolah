@@ -29,11 +29,26 @@ class Admin extends BaseController
     }
     public function index()
     {
+        $db = \Config\Database::connect();
         $data['sekolah'] =  $this->SettingModel->find(1);
         $data['kuota'] = $this->JurusanModel->findAll();
         $data['pendaftar'] = $this->PendaftarModel->countAll();
+        $data['diterima'] = $db->table('daftar')->where('status', 1)->countAllResults();
+        $data['pending'] = $db->table('daftar')->where('status', 0)->countAllResults();
+        $data['pria'] = $db->table('daftar')->where('jenkel', 'L')->countAllResults();
+        $data['wanita'] = $db->table('daftar')->where('jenkel', 'P')->countAllResults();
         // dd($data['pendaftar']);
         $data['title'] = 'Dashboard';
+        $db = \Config\Database::connect();
+        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $builder2 = $db->table('daftar')->distinct(true)->select('jurusan')->get()->getResultArray();
+        $data['sekol'] = array();
+        $data['jumlah'] = array();
+        foreach ($builder as $sekola) {
+            array_push($data['sekol'], $sekola['asal_sekolah']);
+            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+        }
+
 
         return view('admin/index', $data);
     }

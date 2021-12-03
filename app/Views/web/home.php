@@ -332,11 +332,23 @@
                                                             <th class="text-center">
                                                                 <i class="fas fa-th"></i>
                                                             </th>
-                                                            <th>NPSN</th>
+                                                            <th class="th-sm">NPSN</th>
                                                             <th>Nama Sekolah</th>
 
                                                             <th>Pendaftar</th>
                                                         </tr>
+                                                    <tbody class="ui-sortable">
+                                                        <?php $no = 1; ?>
+                                                        <?php $index = 0; ?>
+                                                        <?php foreach ($sekolah as $sekolah) : ?>
+                                                            <tr>
+                                                                <td><?= $no++; ?></td>
+                                                                <td>null</td>
+                                                                <td><?= $sekolah ?></td>
+                                                                <td><?= $jumlah[$index++] ?></td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
                                                     </thead>
 
                                                 </table>
