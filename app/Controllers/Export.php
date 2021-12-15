@@ -30,7 +30,6 @@ class Export extends BaseController
             $builder = $db->table('daftar');
             $data = $builder->where('status', $id)->get()->getResultArray();
         } else if ($id == 3) {
-
             $data = $pendaftar->findAll();
         }
 
@@ -78,11 +77,15 @@ class Export extends BaseController
         $dompdf->setPaper('A4', 'portrait');
 
 
-        // render html as PDF
-        $dompdf->render();
-        $filename = 'Formulir_' . $id . '.pdf';
+        try {
+            // render html as PDF
+            $dompdf->render();
+            $filename = 'Formulir_' . $id . '.pdf';
 
-        // output the generated pdf
-        $dompdf->stream($filename);
+            // output the generated pdf
+            $dompdf->stream($filename);
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+        }
     }
 }

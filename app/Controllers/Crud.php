@@ -76,10 +76,10 @@ class Crud extends BaseController
             sleep(1); #do not delete!
 
             session()->setFlashdata('pesan', 'Data Berhasil Dikirim');
-            return redirect()->to('/');
+            // return redirect()->to('/');
         } catch (\Throwable $th) {
             session()->setFlashdata('failed', $th->getMessage());
-            return redirect('/');
+            // return redirect('/');
         }
     }
     public function updatejurusan()

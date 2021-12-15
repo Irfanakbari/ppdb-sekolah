@@ -3,7 +3,6 @@
     <li><a class="nav-link" href="<?= base_url() ?>/admin"><i class="fas fa-home fa-fw"></i> <span>Beranda</span></a></li>
 
 
-    <li><a class="nav-link" href="?pg=sekolahpilihan"><i class="fas fa-school"></i> <span>Sekolah Pilihan</span></a></li>
     <?php if (in_groups('admin')) : ?>
         <li class="dropdown ">
             <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire fa-fw"></i> <span>Data Master</span></a>

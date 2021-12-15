@@ -48,6 +48,7 @@ $routes->get('/web/printpdf', 'Web::printpdf');
 $routes->get('/admin', 'Admin::index', ['filter' => 'role:admin,operator']);
 $routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin,operator']);
 $routes->get('/admin/pengumuman', 'Admin::pengumuman', ['filter' => 'role:admin']);
+$routes->get('/admin/getpengumuman', 'Admin::viewpengumuman', ['filter' => 'role:admin']);
 $routes->get('/admin/login', 'Admin::login');
 $routes->get('/admin/register', 'Admin::register');
 $routes->get('/admin/users', 'Admin::user');

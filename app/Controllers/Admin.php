@@ -134,6 +134,16 @@ class Admin extends BaseController
 
         return view('admin/pengumuman/pengumuman', $data);
     }
+    public function viewpengumuman()
+    {
+        $data['sekolah'] =  $this->SettingModel->find(1);
+
+        $data['pengumuman'] = $this->PengumumanModel->findAll();
+        // dd($data['pendaftar']);
+        $data['title'] = 'Dashboard';
+
+        return $data['pengumuman'];
+    }
 
     public function login()
     {
@@ -175,7 +185,6 @@ class Admin extends BaseController
         );
 
         session()->setFlashdata('pengumuman', 'Data Berhasil Ditambah');
-        return redirect()->to('admin/pengumuman/pengumuman');
     }
     public function updatepengumuman($id)
     {

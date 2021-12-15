@@ -104,9 +104,10 @@ class Web extends BaseController
         $filename = 'Formulir_' . $id . '.pdf';
 
         // output the generated pdf
-        $dompdf->stream($filename);
+        $dompdf->stream($filename, array("Attachment" => 0));
+        exit();
 
-        return redirect()->to('/');
+        // return redirect()->to('/');
     }
     public function getsekolah()
     {

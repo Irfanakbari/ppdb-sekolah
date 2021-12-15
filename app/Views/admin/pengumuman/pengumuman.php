@@ -15,7 +15,7 @@
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="card-body">
-                    <form method="POST" action="<?= base_url() ?>/admin/pengumumantambah">
+                    <form method="POST" id="adddata" action="<?= base_url() ?>/admin/pengumumantambah">
                         <?= csrf_field() ?>
                         <div class="form-group">
                             <label>Judul Pengumuman</label>
@@ -139,6 +139,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#adddata').submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var formdata = false;
+            if (window.FormData) {
+                formdata = new FormData(form[0]);
+            }
+            var formAction = form.attr('action');
+            $.ajax({
+                type: 'POST',
+                url: formAction,
+                data: formdata ? formdata : form.serialize(),
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $('#adddata')[0].reset();
+                    $('#tambahdata').modal('hide');
+                    iziToast.show({
+                        title: 'Berhasil',
+                        message: 'Pengumuman berhasil ditambahkan',
+                        color: 'green',
+                        position: 'topRight'
+                    });
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        });
+    });
+</script>
 
 
 <?= $this->endSection(); ?>

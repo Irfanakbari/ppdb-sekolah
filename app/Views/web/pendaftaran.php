@@ -43,7 +43,7 @@
 </head>
 
 <body class="layout-3">
-    <!-- <div class='loader'></div> -->
+    <div class='loader'></div>
     <div class="chating" style=" z-index: 99999; width: 50px; padding: 15px;  bottom: 0; position: fixed; ">
         <a target="_blank" href="https://api.whatsapp.com/send?phone=+62<?= $setting['nolivechat'] ?>&text=<?= $setting['livechat'] ?>">
 
@@ -224,7 +224,6 @@
 
                                                         <div class="form-group mb-0">
                                                             <p>* HARAP ISIKAN DATA DENGAN BENAR</p>
-                                                            <p>* PASSWORD PIN AKAN DIGUNAKAN UNTUK LOGIN</p>
 
                                                         </div>
                                                     </div>
@@ -302,7 +301,46 @@
     <!-- Template JS File -->
     <script src="<?= base_url() ?>/assets/js/scripts.js"></script>
     <script src="<?= base_url() ?>/assets/js/custom.js"></script>
+    <script>
+        $(document).ready(function() {
+            // hide loader
+            $('.loader').hide();
+            $('#form-daftar').submit(function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var url = form.attr('action');
+                var data = form.serialize();
+                // show loader
+                $('.loader').show();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'JSON',
+                    error: function(xhr, status, error) {
+                        iziToast.error({
+                            title: 'Gagal',
+                            message: 'Terjadi kesalahan!',
+                            position: 'topRight'
+                        });
+                    },
+                    success: function(data) {
+                        iziToast.success({
+                            title: 'Berhasil',
+                            message: 'Data berhasil dikirim!',
+                            position: 'topRight'
+                        });
+                        // hide loader
+                        $('.loader').hide();
+                    }
 
+
+
+
+                });
+            });
+        });
+    </script>
 
     <!-- <script type="text/javascript">
         $('.loader').fadeOut('slow');
