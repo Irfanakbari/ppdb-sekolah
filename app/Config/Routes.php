@@ -20,9 +20,11 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override(function () {
+    return view('error/404');
+});
 $routes->setAutoRoute(true);
-$routes->set404Override('Error::index');
+// $routes->set404Override('Error::index');
 
 
 /*
@@ -35,6 +37,7 @@ $routes->set404Override('Error::index');
 // route since we don't have to scan directories.
 $routes->get('/', 'Web::index');
 $routes->get('/home', 'Web::home');
+$routes->get('/homes', 'Web::homes');
 $routes->get('/pendaftaran', 'Web::pendaftaran');
 $routes->get('/pengumuman', 'Web::pengumuman');
 $routes->get('/cetakformulir', 'Web::cetakpdf');
@@ -45,13 +48,13 @@ $routes->get('/web/pendaftaran', 'Web::pendaftaran');
 $routes->get('/web/pengumuman', 'Web::pengumuman');
 $routes->get('/web/cetakformulir', 'Web::cetakpdf');
 $routes->get('/web/printpdf', 'Web::printpdf');
-$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/pengumuman', 'Admin::pengumuman', ['filter' => 'role:admin']);
-$routes->get('/admin/getpengumuman', 'Admin::viewpengumuman', ['filter' => 'role:admin']);
+$routes->get('/admin', 'Admin::index', ['filter' => 'role:admin,operator,login']);
+$routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin,operator,login']);
+$routes->get('/admin/pengumuman', 'Admin::pengumuman', ['filter' => 'role:admin,login']);
+$routes->get('/admin/getpengumuman', 'Admin::viewpengumuman', ['filter' => 'role:admin,login']);
 $routes->get('/admin/login', 'Admin::login');
 $routes->get('/admin/register', 'Admin::register');
-$routes->get('/admin/users', 'Admin::user');
+$routes->get('/admin/users', 'Admin::user,login');
 $routes->get('/crud/view', 'Crud::view');
 $routes->get('/crud/save', 'Crud::save');
 $routes->get('/crud/editjurusan/(:any)', 'Admin::editjurusan/$1', ['filter' => 'role:admin']);
@@ -59,7 +62,7 @@ $routes->get('/crud/updatependaftar/(:any)', 'Crud::updatependaftar/$1', ['filte
 $routes->get('/crud/editpendaftar/(:any)', 'Admin::editpendaftar/$1', ['filter' => 'role:admin,operator']);
 $routes->get('/crud/hapuspendaftar/(:any)', 'Admin::hapuspendaftar/$1', ['filter' => 'role:admin,operator']);
 $routes->get('/crud/tambahjurusan', 'Admin::tambahjurusan', ['filter' => 'role:admin']);
-$routes->get('/admin/syarat', 'Admin::syarat', ['filter' => 'role:admin']);
+$routes->get('/admin/syarat', 'Admin::syarat', ['filter' => 'role:admin,login']);
 $routes->get('/crud/updatesyarat', 'Crud::updatesyarat', ['filter' => 'role:admin']);
 $routes->get('/crud/updatejurusan', 'Crud::updatejurusan', ['filter' => 'role:admin']);
 $routes->get('/crud/addjurusan', 'Crud::addjurusan', ['filter' => 'role:admin']);
@@ -69,23 +72,23 @@ $routes->get('/admin/hapuspengumuman/(:any)', 'Admin::hapuspengumuman/$1', ['fil
 $routes->get('/admin/updatepengumuman/(:any)', 'Admin::updatepengumuman/$1', ['filter' => 'role:admin']);
 $routes->get('/admin/pendaftar', 'Admin::pendaftar', ['filter' => 'role:admin,operator']);
 $routes->get('/admin/pendaftarditerima', 'Admin::pendaftarditerima', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/pendaftarpending', 'Admin::pendaftarditolak', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/jurusan', 'Admin::jurusan', ['filter' => 'role:admin']);
-$routes->get('/admin/kontak', 'Admin::kontak', ['filter' => 'role:admin']);
-$routes->get('/crud/addkontak', 'Crud::addkontak', ['filter' => 'role:admin']);
-$routes->get('/crud/hapuskontak/(:any)', 'Admin::hapuskontak/$1', ['filter' => 'role:admin']);
-$routes->get('/crud/updatekontak/(:any)', 'Crud::updateontak/$1', ['filter' => 'role:admin']);
-$routes->get('/admin/exportdata/(:num)', 'Export::export/$1', ['filter' => 'role:admin,operator']);
+$routes->get('/admin/pendaftarpending', 'Admin::pendaftarditolak', ['filter' => 'role:admin,operator,login']);
+$routes->get('/admin/jurusan', 'Admin::jurusan', ['filter' => 'role:admin,login']);
+$routes->get('/admin/kontak', 'Admin::kontak', ['filter' => 'role:admin,login']);
+$routes->get('/crud/addkontak', 'Crud::addkontak', ['filter' => 'role:admin,login']);
+$routes->get('/crud/hapuskontak/(:any)', 'Admin::hapuskontak/$1', ['filter' => 'role:admin,login']);
+$routes->get('/crud/updatekontak/(:any)', 'Crud::updateontak/$1', ['filter' => 'role:admin,login']);
+$routes->get('/admin/exportdata/(:num)', 'Export::export/$1', ['filter' => 'role:admin,operator,login']);
 $routes->get('/404', 'Error::index');
 $routes->get('/export/formpdf/(:any)', 'Export::formpdf/$1');
-$routes->get('/admin/wa/device', 'Admin::wadevice', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/wa/device/hapus/(:any)', 'Admin::wadevicehapus/$1', ['filter' => 'role:admin,operator']);
-$routes->post('/admin/device/tambah', 'Crud::waadd', ['filter' => 'role:admin,operator']);
-$routes->post('/admin/device/edit/(:any)', 'Crud::waupdate/$1', ['filter' => 'role:admin,operator']);
-$routes->get('/admin/wa/pesan', 'Admin::wapesan', ['filter' => 'role:admin,operator']);
-$routes->post('/admin/wa/blastpesan', 'Blast::blaster', ['filter' => 'role:admin,operator']);
-$routes->post('/admin/setting', 'Admin::setting', ['filter' => 'role:admin']);
-$routes->post('/admin/setting/update', 'Admin::settingupdate', ['filter' => 'role:admin']);
+$routes->get('/admin/wa/device', 'Admin::wadevice', ['filter' => 'role:admin,operator,login']);
+$routes->get('/admin/wa/device/hapus/(:any)', 'Admin::wadevicehapus/$1', ['filter' => 'role:admin,operator,login']);
+$routes->post('/admin/device/tambah', 'Crud::waadd', ['filter' => 'role:admin,operator,login']);
+$routes->post('/admin/device/edit/(:any)', 'Crud::waupdate/$1', ['filter' => 'role:admin,operator,login']);
+$routes->get('/admin/wa/pesan', 'Admin::wapesan', ['filter' => 'role:admin,operator,login']);
+$routes->post('/admin/wa/blastpesan', 'Blast::blaster', ['filter' => 'role:admin,operator,login']);
+$routes->post('/admin/setting', 'Admin::setting', ['filter' => 'role:admin,login']);
+$routes->post('/admin/setting/update', 'Admin::settingupdate', ['filter' => 'role:admin,login']);
 
 /*
  * --------------------------------------------------------------------

@@ -2,260 +2,171 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>404 Not Found</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Kanit:200" rel="stylesheet">
+
+    <!-- Font Awesome Icon -->
+    <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css" />
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
     <style>
         * {
-            padding: 0;
-            margin: 0;
+            -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
 
-        *::before,
-        *::after {
-            content: '';
-            position: absolute;
-        }
-
         body {
-            background: #1B0034;
-            background-image: linear-gradient(135deg, #1B0034 10%, #33265C 100%);
-            background-attachment: fixed;
-            background-size: cover;
-
+            padding: 0;
+            margin: 0;
         }
 
-        .error {
-            width: 100%;
-            height: auto;
-            margin: 50px auto;
-            text-align: center;
-            margin-bottom: 0;
-        }
-
-        .dracula {
-            width: 230px;
-            height: 300px;
-            display: inline-block;
-            margin: auto;
-            overflowX: hidden;
-        }
-
-        .error .p {
-            height: 100%;
-            color: #C0D7DD;
-            font-size: 280px;
-            margin: 50px;
-            display: inline-block;
-            font-family: 'Anton', sans-serif;
-            font-family: 'Combo', cursive;
-        }
-
-
-        .con {
-            width: 500px;
-            height: 500px;
+        #notfound {
             position: relative;
-            margin: 9% auto 0;
-            animation: ani9 0.7s ease-in-out infinite alternate;
+            height: 100vh;
         }
 
-        @keyframes ani9 {
-            0% {
-                transform: translateY(10px);
-            }
-
-            100% {
-                transform: translateY(30px);
-            }
-
-        }
-
-
-        .con>* {
+        #notfound .notfound {
             position: absolute;
-            top: 0;
-            left: 0;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
         }
 
-        .hair {
-            top: -20px;
-            width: 210px;
-            height: 200px;
-            background: #C0D7DD;
-            border-radius: 0 50% 0 50%;
-            transform: rotate(45deg);
-            background: #33265C;
-        }
-
-        .hair-r {
-            left: 20px;
-            width: 210px;
-            height: 200px;
-            background: #C0D7DD;
-            border-radius: 0 50% 0 50%;
-            transform: rotate(45deg);
-            background: #33265C;
-
-        }
-
-        .head {
-            width: 200px;
-            height: 200px;
-            background: #C0D7DD;
-            border-radius: 0 50% 0 50%;
-            transform: rotate(45deg);
-        }
-
-        .eye {
-            width: 20px;
-            height: 20px;
-            background: #111113;
-            border-radius: 50%;
-            top: 15%;
-            left: 11.5%;
-            transition: .3s linear;
-        }
-
-        .eye-r {
-            left: 24%;
-        }
-
-        .mouth {
-            width: 60px;
-            height: 20px;
-            background: #840021;
-            top: 20%;
-            left: 14%;
-            border-radius: 50% / 0 0 100% 100%;
-        }
-
-        .mouth::after {
-
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 13px solid #FFFFFF;
-            left: 10px;
-
-        }
-
-        .mouth::before {
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 13px solid #FFFFFF;
-            left: 40px;
-        }
-
-        .blod {
-            width: 8px;
-            height: 20px;
-            background: #840021;
-            top: 23%;
-            left: 17%;
-            border-radius: 20px;
-        }
-
-        .blod::after {
-            width: 2px;
-            height: 10px;
-            background: #FFF;
-            top: 20%;
-            left: 10%;
-            border-radius: 20px;
-
-        }
-
-        .blod2 {
-            top: 23%;
-            left: 20%;
-            width: 13px;
-            height: 13px;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(130deg);
-            animation: blod 2s linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes blod {
-            0% {
-                opacity: 1;
-            }
-
-            100% {
-                background: red;
-                opacity: 0;
-                top: 50%;
-            }
-
-
-        }
-
-
-
-        /* page-ms */
-        .page-ms {
-            transform: translateY(-50px);
-        }
-
-        .error p.page-msg {
+        .notfound {
+            max-width: 767px;
+            width: 100%;
+            line-height: 1.4;
             text-align: center;
-            color: #C0D7DD;
-            font-size: 30px;
-            font-family: 'Combo', cursive;
-            margin-bottom: 20px;
+            padding: 15px;
         }
 
-        button.go-back {
-            font-size: 30px;
-            font-family: 'Combo', cursive;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: 0.3s linear;
-            z-index: 9;
-            border-radius: 10px;
-            background: #C0D7DD;
-            color: #33265C;
-            box-shadow: 0 0 10px 0 #C0D7DD;
-            margin-top: 20px;
+        .notfound .notfound-404 {
+            position: relative;
+            height: 220px;
         }
 
-        button:hover {
-            box-shadow: 0 0 20px 0 #C0D7DD;
+        .notfound .notfound-404 h1 {
+            font-family: 'Kanit', sans-serif;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            font-size: 186px;
+            font-weight: 200;
+            margin: 0px;
+            background: linear-gradient(130deg, #ffa34f, #ff6f68);
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-transform: uppercase;
+        }
+
+        .notfound h2 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 33px;
+            font-weight: 200;
+            text-transform: uppercase;
+            margin-top: 0px;
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+        }
+
+
+        .notfound p {
+            font-family: 'Kanit', sans-serif;
+            font-size: 16px;
+            font-weight: 200;
+            margin-top: 0px;
+            margin-bottom: 25px;
+        }
+
+
+        .notfound a {
+            font-family: 'Kanit', sans-serif;
+            color: #ff6f68;
+            font-weight: 200;
+            text-decoration: none;
+            border-bottom: 1px dashed #ff6f68;
+            border-radius: 2px;
+        }
+
+        .notfound-social>a {
+            display: inline-block;
+            height: 40px;
+            line-height: 40px;
+            width: 40px;
+            font-size: 14px;
+            color: #ff6f68;
+            border: 1px solid #efefef;
+            border-radius: 50%;
+            margin: 3px;
+            -webkit-transition: 0.2s all;
+            transition: 0.2s all;
+        }
+
+        .notfound-social>a:hover {
+            color: #fff;
+            background-color: #ff6f68;
+            border-color: #ff6f68;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .notfound .notfound-404 {
+                position: relative;
+                height: 168px;
+            }
+
+            .notfound .notfound-404 h1 {
+                font-size: 142px;
+            }
+
+            .notfound h2 {
+                font-size: 22px;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
 </head>
 
 <body>
-    <div class="container">
 
-        <div class="error">
-            <p class="p">4</p>
-            <span class="dracula">
-                <div class="con">
-                    <div class="hair"></div>
-                    <div class="hair-r"></div>
-                    <div class="head"></div>
-                    <div class="eye"></div>
-                    <div class="eye eye-r"></div>
-                    <div class="mouth"></div>
-                    <div class="blod"></div>
-                    <div class="blod blod2"></div>
-                </div>
-            </span>
-            <p class="p">4</p>
-
-            <div class="page-ms">
-                <p class="page-msg"> Oops, the page you're looking for Disappeared </p>
-                <button class="go-back">Go Back</button>
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>Oops! Nothing was found</h2>
+            <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable. <a href="<?= base_url() ?>">Return to homepage</a></p>
+            <div class="notfound-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
             </div>
         </div>
     </div>
 
-    <iframe style="width:0;height:0;border:0; border:none;" scrolling="no" frameborder="no" allow="autoplay" src="https://instaud.io/_/2Vvu.mp3"></iframe>
-
-</body>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>

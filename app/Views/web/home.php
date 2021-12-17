@@ -57,18 +57,6 @@
                     <img src="<?= base_url() ?>/img/<?= $setting['logo'] ?>" width="50"> <?= $setting['nama_sekolah'] ?>
                 </a>
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
-                <!-- <div class="nav-collapse">
-                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active"><a href="#" class="nav-link">Application</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Report Something</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Server Status</a></li>
-                    </ul>
-                </div> --> -->
-
-
             </nav>
 
             <nav class="navbar navbar-secondary navbar-expand-lg">
@@ -91,7 +79,7 @@
                     </span>
 
             </nav>
-
+            `
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">

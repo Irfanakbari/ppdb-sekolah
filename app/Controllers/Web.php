@@ -36,6 +36,23 @@ class Web extends BaseController
 
         return redirect()->to(base_url('home'));
     }
+    public function homes()
+    {
+        $data['setting'] = $this->settingModel->find(1);
+        $data['kuota'] = $this->jurusanModel->findAll();
+        $data['syarat'] = $this->settingModel->find(1);
+        $data['count'] = $this->pendaftarModel->countAll();
+        $data['kontak'] = $this->kontakModel->findAll();
+        $db = \Config\Database::connect();
+        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $data['sekolah'] = array();
+        $data['jumlah'] = array();
+        foreach ($builder as $sekola) {
+            array_push($data['sekolah'], $sekola['asal_sekolah']);
+            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+        }
+        return view('web/homes', $data);
+    }
     public function home()
     {
 
@@ -52,7 +69,7 @@ class Web extends BaseController
             array_push($data['sekolah'], $sekola['asal_sekolah']);
             array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
         }
-        return view('web/home', $data);
+        return view('web/index', $data);
     }
     public function pendaftaran()
     {
