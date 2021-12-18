@@ -4,6 +4,8 @@
 
 Aplikasi ini dibuat menggunakan Framework Codeigniter 4, dan desain UI berasal dari Candy, aplikasi ini dibuat untuk membantu Sekolah dalam melaksanakan PPDB secara daring, UI dibuat semudah mungkin untuk dipahami dan mempermudah Operator Sekolah merekap Data.
 
+Demo Web : [Klik Disini](https://habib.masuk.id)
+
 Screenshot Tampilah Web Visitor :
 
 ![alt text](https://i.ibb.co/RTG9zBw/Web-capture-18-12-2021-74040-localhost.jpg)
