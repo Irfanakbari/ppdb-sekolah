@@ -11,30 +11,28 @@ use Dompdf\Dompdf;
 
 class Export extends BaseController
 {
-    public function index()
+    protected $PendaftarModel;
+    protected $settingModel;
+
+    public function __construct()
     {
-        return view('welcome_message');
+        $this->PendaftarModel = new PendaftarModel();
+        $this->settingModel = new SettingModel();
     }
     public function export($id)
     {
-        $pendaftar = new PendaftarModel();
-
         if ($id == 1) {
-
-            $db      = \Config\Database::connect();
-            $builder = $db->table('daftar');
-            $data = $builder->where('status', $id)->get()->getResultArray();
+            $data = $this->PendaftarModel->where('status', $id)->get()->getResultArray();
         } elseif ($id == 0) {
-
-            $db      = \Config\Database::connect();
-            $builder = $db->table('daftar');
-            $data = $builder->where('status', $id)->get()->getResultArray();
+            $data = $this->PendaftarModel->where('status', $id)->get()->getResultArray();
         } else if ($id == 3) {
-            $data = $pendaftar->findAll();
+            $data = $this->PendaftarModel->findAll();
         }
 
+        // call spreadsheet library
         $spreadsheet = new Spreadsheet();
 
+        // set header/title cell
         $spreadsheet->setActiveSheetIndex(0)
             ->setCellValue('A1', 'No')
             ->setCellValue('B1', 'NIK')
@@ -42,9 +40,9 @@ class Export extends BaseController
             ->setCellValue('D1', 'Nama Lengkap')
             ->setCellValue('E1', 'Asal Sekolah')
             ->setCellValue('F1', 'No Hp');
-
         $column = 2;
         $no = 1;
+        // looping data and insert to cell
         foreach ($data as $data) {
             $spreadsheet->setActiveSheetIndex(0)
                 ->setCellValue('A' . $column, $no++)
@@ -55,21 +53,21 @@ class Export extends BaseController
                 ->setCellValue('F' . $column, $data['no_hp']);
             $column++;
         }
+        // set header 
         $writer = new Xlsx($spreadsheet);
         $fileName = 'Data Pendaftar';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
         header('Cache-Control: max-age=0');
 
+        // save file and download
         $writer->save('php://output');
     }
+
     public function formpdf($id)
     {
-        $pendaftar = new PendaftarModel();
-        $sekolah = new SettingModel();
-        $data['siswa'] = $pendaftar->find($id);
-        $data['setting'] = $sekolah->find(1);
-        // $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
+        $data['siswa'] = $this->PendaftarModel->find($id);
+        $data['setting'] = $this->settingModel->find(1);
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(['isRemoteEnabled' => false]);

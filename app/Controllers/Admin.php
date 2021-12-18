@@ -29,27 +29,21 @@ class Admin extends BaseController
     }
     public function index()
     {
-        $db = \Config\Database::connect();
         $data['sekolah'] =  $this->SettingModel->find(1);
         $data['kuota'] = $this->JurusanModel->findAll();
         $data['pendaftar'] = $this->PendaftarModel->countAll();
-        $data['diterima'] = $db->table('daftar')->where('status', 1)->countAllResults();
-        $data['pending'] = $db->table('daftar')->where('status', 0)->countAllResults();
-        $data['pria'] = $db->table('daftar')->where('jenkel', 'L')->countAllResults();
-        $data['wanita'] = $db->table('daftar')->where('jenkel', 'P')->countAllResults();
-        // dd($data['pendaftar']);
+        $data['diterima'] = $this->PendaftarModel->where('status', 1)->countAllResults();
+        $data['pending'] = $this->PendaftarModel->where('status', 0)->countAllResults();
+        $data['pria'] = $this->PendaftarModel->where('jenkel', 'L')->countAllResults();
+        $data['wanita'] = $this->PendaftarModel->where('jenkel', 'P')->countAllResults();
         $data['title'] = 'Dashboard';
-        $db = \Config\Database::connect();
-        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
-        $builder2 = $db->table('daftar')->distinct(true)->select('jurusan')->get()->getResultArray();
+        $builder = $this->PendaftarModel->distinct(true)->select('asal_sekolah')->get()->getResultArray();
         $data['sekol'] = array();
         $data['jumlah'] = array();
         foreach ($builder as $sekola) {
             array_push($data['sekol'], $sekola['asal_sekolah']);
-            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+            array_push($data['jumlah'], $this->PendaftarModel->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
         }
-
-
         return view('admin/index', $data);
     }
     public function pendaftar()
@@ -67,30 +61,20 @@ class Admin extends BaseController
             $data['jurusan'] = $this->JurusanModel->findAll();
             return view('admin/pendaftar/detail', $data);
         } catch (\Throwable $th) {
-            // return  redirect()->to('404');
             dd($th);
         }
-        // return view('admin/pendaftar/detail', $data);
     }
     public function pendaftarditerima()
     {
-
-        $db      = \Config\Database::connect();
-        $builder = $db->table('daftar');
-
         $data['sekolah'] =  $this->SettingModel->find(1);
-        $data['siswa'] = $builder->where('status', 1)->get()->getResultArray();
+        $data['siswa'] = $this->PendaftarModel->where('status', 1)->get()->getResultArray();
         $data['jurusan'] = $this->JurusanModel->findAll();
         return view('admin/pendaftar/pendaftar_diterima', $data);
     }
     public function pendaftarditolak()
     {
-
-        $db      = \Config\Database::connect();
-        $builder = $db->table('daftar');
-
         $data['sekolah'] =  $this->SettingModel->find(1);
-        $data['siswa'] = $builder->where('status', 0)->get()->getResultArray();
+        $data['siswa'] = $this->PendaftarModel->where('status', 0)->get()->getResultArray();
         $data['jurusan'] = $this->JurusanModel->findAll();
         return view('admin/pendaftar/pendaftar_pending', $data);
     }
@@ -111,12 +95,6 @@ class Admin extends BaseController
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
         $data['jurusan'] = $this->JurusanModel->find($id);
-        // $jurusan->update([
-        //     'id_jurusan' => $this->request->getVar('id_jurusan'),
-        //     'nama_jurursan' => $this->request->getVar('nama_jurursan'),
-        //     'kuota' => $this->request->getVar('kuota'),
-        //     'status' => $this->request->getVar('status')
-        // ]);
         return view('admin/jurusan/edit', $data);
     }
     public function tambahjurusan()
@@ -127,9 +105,7 @@ class Admin extends BaseController
     public function pengumuman()
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
-
         $data['pengumuman'] = $this->PengumumanModel->findAll();
-        // dd($data['pendaftar']);
         $data['title'] = 'Dashboard';
 
         return view('admin/pengumuman/pengumuman', $data);
@@ -137,11 +113,8 @@ class Admin extends BaseController
     public function viewpengumuman()
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
-
         $data['pengumuman'] = $this->PengumumanModel->findAll();
-        // dd($data['pendaftar']);
         $data['title'] = 'Dashboard';
-
         return $data['pengumuman'];
     }
 
@@ -156,9 +129,6 @@ class Admin extends BaseController
     public function user()
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
-
-        // $users = new \Myth\Auth\Models\UserModel();
-        // $data['users'] = $users->findAll();
         $db = \Config\Database::connect();
         $builder = $db->table('users');
         $builder->select('users.id as userid, username, email, full_name,avatar_pict, name');
@@ -173,8 +143,6 @@ class Admin extends BaseController
     public function pengumumantambah()
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
-
-        // $field = $this->request->getVar('pengumuman');
         $this->PengumumanModel->insert(
             [
                 'judul' => $this->request->getVar('judul'),
@@ -189,8 +157,6 @@ class Admin extends BaseController
     public function updatepengumuman($id)
     {
         $data['sekolah'] =  $this->SettingModel->find(1);
-
-        // $field = $this->request->getVar('pengumuman');
         $this->PengumumanModel->update(
             $id,
             [
@@ -251,16 +217,10 @@ class Admin extends BaseController
     }
     public function wapesan()
     {
-        $db = \Config\Database::connect();
-        $builder = $db->table('device');
         $data['sekolah'] =  $this->SettingModel->find(1);
-        $data['device'] = $builder->where('status', '1')->get()->getResultArray();
+        $data['device'] = $this->deviceModel->where('status', '1')->get()->getResultArray();
 
         return view('admin/wa/send_wa', $data);
-    }
-    public function sendwa()
-    {
-        dd($this->request->getVar('pesan'));
     }
     public function setting()
     {
@@ -271,9 +231,6 @@ class Admin extends BaseController
     public function settingupdate()
     {
         $fileLogo = $this->request->getFile('logo');
-
-        // pindah ke img
-
         $fileLogo->move('img', $fileLogo->getName(), true);
         $data = [
             'nama_sekolah' => $this->request->getVar('nama'),
@@ -288,7 +245,6 @@ class Admin extends BaseController
             'ppdb_close' => $this->request->getVar('ppdb_close'),
             'logo' => $fileLogo->getName(),
         ];
-        // dd($data);
         $this->SettingModel->update(1, $data);
         return redirect()->to('admin/setting/setting');
     }

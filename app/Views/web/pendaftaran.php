@@ -1,18 +1,10 @@
 <section class="section">
     <div class="section-header">
-        <h1>AYO SEGERA DAFTAR KUOTA TERBATAS !</h1>
-        <div class="section-header-breadcrumb">
-            <button type="button" data-id="pendaftaran" class="btn klikmenu btn-danger animated infinite pulse delay-2s">Daftar Sekarang</button> &nbsp;
-            &nbsp;
-            <!-- <button id="btnmasuk" data-id="login" type="button" class="klikmenu btn btn-primary">MASUK KE WEB</button> -->
-        </div>
+        <h4>IP Address Kamu Adalah : <?= $ip ?></h4>
     </div>
 
+
     <div class="section-body ">
-
-
-
-
         <?php if (strtotime(date('Y-m-d H:i:s')) < strtotime($pendaftaran['ppdb_open'])) { ?>
 
             <center>
@@ -79,8 +71,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-
-
                                     <div class="form-group">
                                         <label>Jurusan</label>
                                         <select class='form-control' name='jurusan' required>
@@ -141,12 +131,10 @@
                     </div>
                 </div>
             </div>
-
         <?php } ?>
         <script>
             $(document).ready(function() {
                 // hide loader
-                $('.loader').hide();
                 $('#form-daftar').submit(function(e) {
                     e.preventDefault();
                     var form = $(this);

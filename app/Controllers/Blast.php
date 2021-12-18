@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-
-
 class Blast extends BaseController
 {
     protected $pendaftarModel;
@@ -21,21 +19,29 @@ class Blast extends BaseController
     }
     public function blaster()
     {
-        $db = \Config\Database::connect();
-        $status = $db->table('daftar')->where('status', (int)$this->request->getVar('status'))->get()->getResultArray();
-        $device = $db->table('device')->where('id_device', (int) $this->request->getVar('device'))->get()->getResultArray();
+        if ($this->request->getVar('status') == 1 || $this->request->getVar('status') == 0) {
+            $status = $this->pendaftarModel->table('daftar')->where('status', (int)$this->request->getVar('status'))->get()->getResultArray();
+        } else {
+            $status = $this->pendaftarModel->get()->getResultArray();
+        }
+        $status = $this->pendaftarModel->where('status', (int)$this->request->getVar('status'))->get()->getResultArray();
+        $device = $this->deviceModel->where('id_device', (int) $this->request->getVar('device'))->get()->getResultArray();
         $pesan = $this->request->getVar('pesan');
         $sekolah = $this->settingModel->find(1);
         $siswa = $this->pendaftarModel->findAll();
-        // $token = $device['device_id'];
+        $token = $device['device_id'];
 
-
+        // Looping send wa foreach siswa
         foreach ($status as $siswa) {
             $pesan = str_replace('{{nama}}', $siswa['nama_lengkap'], $pesan);
+            $pesan = str_replace('{{nik}}', $siswa['nik'], $pesan);
+            $pesan = str_replace('{{no_pendaftaran}}', $siswa['no_daftar'], $pesan);
             $pesan = str_replace('{{asal_sekolah}}', $siswa['asal_sekolah'], $pesan);
             $pesan = str_replace('{{nama_sekolah}}', $sekolah['nama_sekolah'], $pesan);
             $pesan = str_replace('{{alamat_sekolah}}', $sekolah['alamat'], $pesan);
 
+
+            // WA Gateway API
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
@@ -55,7 +61,7 @@ class Blast extends BaseController
                     'schedule' => '0'
                 ),
                 CURLOPT_HTTPHEADER => array(
-                    "Authorization: hkgSE5jKqxJ6zr3gHo7g"
+                    "Authorization: $token"
                 ),
             ));
 
@@ -65,12 +71,10 @@ class Blast extends BaseController
             curl_close($curl);
             echo $response;
             sleep(1); #do not delete!
+            // End Wa Gateway API
+
             session()->setFlashdata('sukses', 'Pesan berhasil dikirim');
         }
-
-
-
-
         return redirect()->to('/admin/wa/pesan');
     }
 }

@@ -69,7 +69,7 @@
                                 <h4>Data Sekolah</h4>
                             </div>
                             <div class="card-body">
-                                19
+                                <?= $jml_sekolah ?>
                             </div>
                         </div>
                     </div>
@@ -81,10 +81,10 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Data Jenjang</h4>
+                                <h4>Data Jurusan</h4>
                             </div>
                             <div class="card-body">
-                                3
+                                <?= $jml_jurusan ?>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
-                                <h4>Kuota Pendaftaran</h4>
+                                <h4>Sisa Kuota</h4>
                             </div>
                             <div class="card-body">
                                 <?php $sisa = 0; ?>
@@ -217,9 +217,7 @@
                                             <th class="text-center">
                                                 <i class="fas fa-th"></i>
                                             </th>
-                                            <th class="th-sm">NPSN</th>
                                             <th>Nama Sekolah</th>
-
                                             <th>Pendaftar</th>
                                         </tr>
                                     <tbody class="ui-sortable">
@@ -228,7 +226,6 @@
                                         <?php foreach ($sekolah as $sekolah) : ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
-                                                <td>null</td>
                                                 <td><?= $sekolah ?></td>
                                                 <td><?= $jumlah[$index++] ?></td>
                                             </tr>
@@ -254,15 +251,8 @@
                             $('#isi_load').load('<?= base_url() ?>/web/pendaftaran');
                         }
                     });
-
-
-
-
                 });
             </script>
         </div>
-
-
-
     </div>
 </section>

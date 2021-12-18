@@ -34,10 +34,8 @@ class Crud extends BaseController
                 'message' => 'NIK sudah terdaftar'
             ];
         } else {
-
             $id = $this->request->getPost('nik');
             $this->pendaftarModel->insert(
-
                 [
                     'no_daftar' => 'PPDB2021',
                     'nik' => $this->request->getVar('nik'),
@@ -186,7 +184,7 @@ class Crud extends BaseController
             'rt' => $this->request->getVar('rt'),
             'rw' => $this->request->getVar('rw'),
             'provinsi' => ucwords($this->request->getVar('provinsi')),
-            'kota' => ucwords($this->request->getVar('kota')),
+            'kabupaten' => ucwords($this->request->getVar('kota')),
             'kecamatan' => ucwords($this->request->getVar('kecamatan')),
             'desa' => ucwords($this->request->getVar('desa')),
             'kode_pos' => $this->request->getVar('kodepos'),

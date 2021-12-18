@@ -48,7 +48,7 @@
     <div class="chating" style=" z-index: 99999; width: 50px; padding: 15px;  bottom: 0; position: fixed; ">
         <a target="_blank" href="https://api.whatsapp.com/send?phone=+62<?= $setting['nolivechat'] ?>&text=<?= $setting['livechat'] ?>">
 
-            <img src="<?= base_url() ?>/assets/img/wa.png" width="150"> </a>
+            <img src="<?= base_url() ?>/assets/img/wa.png" width="50"> </a>
     </div>
     <div id="app">
         <div class="main-wrapper container">
@@ -90,7 +90,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; <?= date('Y') ?> Habib School <div class="bullet"></div> Design By <a href="https://nauval.in/">Stisla</a>
+                    Copyright &copy; <?= date('Y') ?> Habib School <div class="bullet"></div> Template By <a href="#">Stisla</a>
                 </div>
                 <div class="footer-right">
 
@@ -158,7 +158,15 @@
         // halaman yang di load default pertama kali
         $('.main-content').load('<?= base_url() ?>/web/homes');
     </script>
-    <!-- <a href="#" class="ignielToTop"></a> -->
+    <script>
+        // change navbar-bg color
+        var navbar = $('.navbar-bg');
+        var primary = $('.bg-primary');
+        // change color css
+        var color = '#008c5f';
+        navbar.css('background-color', color);
+        primary.css('background-color', color);
+    </script>
 
 </body>
 
