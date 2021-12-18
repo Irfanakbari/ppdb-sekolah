@@ -1,63 +1,78 @@
-# CodeIgniter 4 Application Starter
+# PPDB Sekolah Berbasis Web
 
-## What is CodeIgniter?
+## Deskripsi
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+Aplikasi ini dibuat menggunakan Framework Codeigniter 4, dan desain UI berasal dari Candy, aplikasi ini dibuat untuk membantu Sekolah dalam melaksanakan PPDB secara daring, UI dibuat semudah mungkin untuk dipahami dan mempermudah Operator Sekolah merekap Data.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Screenshot Tampilah Web Visitor :
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+![alt text](https://i.ibb.co/RTG9zBw/Web-capture-18-12-2021-74040-localhost.jpg)
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
 
-## Installation & updates
+## Fitur
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+- Dibangun menggunakan Framework Terbaru Codeigniter 4
+- Database MariaDB 10.4.22
+- JQuery
+- Bootstrap (Template By Stisla)
+- Fontawesome
+- Responsive
+- Ajax (Kirim data, pindah halaman tanpa reload)
+- Autentikasi by MyAuth Library
+- Cegah Duplikasi pendaftarn berdasakan NIK
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+User atau Pendaftar :
+- Rincian pendaftar, data jurusan, sisa kuota
+- Rincian jumlah pendaftar berdasarkan asal sekolah
+- Informasi pendaftaran, kontak pendaftaran, syarat pendaftaran
+- Menu cetak formulir
+- Menu pengumuman untuk melihat pengumuman yang dibuat oleh admin sekolah
+- Notifikasi WA apabila berhasil mendaftar (Perlu langganan/layanan WA Gateway Pihak ketiga)
+- Download formulir dalam format PDF
+
+Operator/Admin Sekolah :
+- Edit User dan ubah status menjadi Diterima/Pending
+- Melihat rincian pendaftar berdasarkan sekolah, jurusan (coming soon), jenis kelamin
+- Input jurusan dan kuota
+- Data pendaftar dan Export Excel Massal berdasarkan pendaftar diterima/pending
+- Ubah syarat/kontak pendaftaran yang tampil di halaman pendaftar
+- Ubah device untuk Notifikasi Wa/Wa brodcast (Perlu langganan/layanan WA Gateway Pihak ketiga)
+- Kirim Pesan massal kepada pendaftar (Perlu langganan/layanan WA Gateway Pihak ketiga)
+- Ubah pengumuman yang akan dilihat pengunjung
+- Manajemen User, dan pengaturan Aplikasi
+
+## System Requirement
+
+- PHP Versi 7.3 atau yang terbaru
+- Database MariaDB 10.4.22
+- Wa Gateway (Opsional)
+- Extensi PHP GD, MBstring harus diaktifkan
 
 ## Setup
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+- Download Source Code .zip dan Database
+- Database mungkin tidak tersedia di GitHub, silahkan hubungi saya di WA `082276880570` atau email ke `irfan.akbarihabibi@gmail.com`
+- Buat Folder baru didalam folder `htdocs`
+- Ekstrak ke dalam folder tsb
+- Ubah konfigurasi di file `.env`
+- Pada baris `CI_ENVIRONMENT = development` ubah menjadi `CI_ENVIRONMENT = production`
+- Pada baris `# app.baseURL = 'http://127.0.0.1'` silahkan ubah sesuai base url anda jika di hosting/localhost dan hilangkan tanda `#`
+- Dibagian Database ubah dan sesuaikan hostname, username, password, dan nama database
+- `Ctrl + S` atau Save
+- Untuk upload di hosting atau VPS anda dapat mencari tutorial `Upload Codeigniter 4 di Hosting`
 
-## Important Change with index.php
+## Note
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+Aplikasi ini mungkin masih terdapat bug atau kekurangan di beberapa bagian, silahkan hubungi saya atau jika ingin berkontribusi. Aplikasi ini gratis dan bebas untuk digunakan ataupun dimodifikasi ulang namun tidak untuk dijual kembali.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Referensi 
+- Candy PPDB for UI
+- Codeigniter Documentation
+- JQuery Documentation
+- Stackoverflow
+- Youtube [Web Programming UNPAS](https://www.youtube.com/channel/UCkXmLjEr95LVtGuIm3l2dPg)
+- Grup [Codeigniter Indonesia](https://web.facebook.com/groups/codeigniter.id) 
+- dll
 
-**Please** read the user guide for a better explanation of how CI4 works!
 
-## Repository Management
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Server Requirements
-
-PHP version 7.3 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
