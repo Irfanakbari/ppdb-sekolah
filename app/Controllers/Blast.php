@@ -25,11 +25,10 @@ class Blast extends BaseController
             $status = $this->pendaftarModel->get()->getResultArray();
         }
         $status = $this->pendaftarModel->where('status', (int)$this->request->getVar('status'))->get()->getResultArray();
-        $device = $this->deviceModel->where('id_device', (int) $this->request->getVar('device'))->get()->getResultArray();
         $pesan = $this->request->getVar('pesan');
         $sekolah = $this->settingModel->find(1);
         $siswa = $this->pendaftarModel->findAll();
-        $token = $device['device_id'];
+        $token = $this->deviceModel->where('status', 1)->get()->getResultArray();
 
         // Looping send wa foreach siswa
         foreach ($status as $siswa) {
@@ -44,34 +43,33 @@ class Blast extends BaseController
             // WA Gateway API
             $curl = curl_init();
 
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://hp.fonnte.com/api/send_message.php",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => array(
-                    'phone' => $siswa['no_hp'],
-                    'type' => 'text',
-                    'text' => $pesan,
-                    'delay' => '5',
-                    'schedule' => '0'
-                ),
-                CURLOPT_HTTPHEADER => array(
-                    "Authorization: $token"
-                ),
-            ));
+            $data = [
+                'api_key' => $token[0]['device_id'],
+                'sender'  => $siswa[0]['no_hp'],
+                'number'  => $siswa['no_hp'],
+                'message' => $pesan,
+            ];
+
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => "https://wb.irfans.my.id/api/send-message.php",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($data)
+                )
+            );
 
             $response = curl_exec($curl);
 
-
             curl_close($curl);
             echo $response;
-            sleep(1); #do not delete!
-            // End Wa Gateway API
 
             session()->setFlashdata('sukses', 'Pesan berhasil dikirim');
         }

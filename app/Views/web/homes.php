@@ -1,6 +1,6 @@
 <section class="section">
     <div class="section-header">
-        <h1>AYO SEGERA DAFTAR KUOTA TERBATAS !</h1>
+        <h1>AYO SEGERA DAFTAR !</h1>
         <div class="section-header-breadcrumb">
             <button type="button" data-id="pendaftaran" class="btn klikmenu btn-danger animated infinite pulse delay-2s">Daftar Sekarang</button> &nbsp;
             <!-- <button id="btnmasuk" data-id="login" type="button" class="klikmenu btn btn-primary">MASUK KE WEB</button> -->

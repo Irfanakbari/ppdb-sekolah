@@ -84,7 +84,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>AYO SEGERA DAFTAR KUOTA TERBATAS !</h1>
+                        <h1>AYO SEGERA DAFTAR !</h1>
                         <div class="section-header-breadcrumb">
                             <a href="<?= base_url() ?>/web/pendaftaran" style="color: white;" id="btndaftar" class=" btn btn-danger animated infinite pulse delay-2s">DAFTAR SEKARANG</a> &nbsp;
                             <!-- <button id="btnmasuk" data-id="login" type="button" class="klikmenu btn btn-primary">MASUK KE WEB</button> -->
