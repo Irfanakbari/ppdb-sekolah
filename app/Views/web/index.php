@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Habib</title>
+    <title><?= $setting['nama_sekolah'] ?></title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -90,7 +90,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; <?= date('Y') ?> Habib School <div class="bullet"></div> Template By <a href="#">Stisla</a>
+                    Copyright &copy; <?= date('Y') ?> <?= $setting['nama_sekolah'] ?> <div class="bullet"></div> Template By <a href="#">Stisla</a>
                 </div>
                 <div class="footer-right">
 

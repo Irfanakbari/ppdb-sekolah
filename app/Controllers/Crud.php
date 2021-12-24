@@ -53,33 +53,33 @@ class Crud extends BaseController
             $nyariid = $this->pendaftarModel->find($id);
 
 
-            $data = [
-                'api_key' => $token[0]['device_id'],
-                'sender'  => $token[0]['no_hp'],
-                'number'  => $this->request->getVar('no_hp'),
-                'message' => 'Halo ' . $this->request->getVar('nama_lengkap') . ' Selamat Anda Telah Terdaftar di PPDB 2021 Dengan Nomor Pendaftaran : PPDB2021' . $nyariid['id'],
-            ];
+            // $data = [
+            //     'api_key' => $token[0]['device_id'],
+            //     'sender'  => $token[0]['no_hp'],
+            //     'number'  => $this->request->getVar('no_hp'),
+            //     'message' => 'Halo ' . $this->request->getVar('nama_lengkap') . ' Selamat Anda Telah Terdaftar di PPDB 2021 Dengan Nomor Pendaftaran : PPDB2021' . $nyariid['id'],
+            // ];
 
-            $curl = curl_init();
-            curl_setopt_array(
-                $curl,
-                array(
-                    CURLOPT_URL => "https://wb.irfans.my.id/api/send-message.php",
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => "",
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                    CURLOPT_CUSTOMREQUEST => "POST",
-                    CURLOPT_POSTFIELDS => json_encode($data)
-                )
-            );
+            // $curl = curl_init();
+            // curl_setopt_array(
+            //     $curl,
+            //     array(
+            //         CURLOPT_URL => "https://wb.irfans.my.id/api/send-message.php",
+            //         CURLOPT_RETURNTRANSFER => true,
+            //         CURLOPT_ENCODING => "",
+            //         CURLOPT_MAXREDIRS => 10,
+            //         CURLOPT_TIMEOUT => 0,
+            //         CURLOPT_FOLLOWLOCATION => true,
+            //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //         CURLOPT_CUSTOMREQUEST => "POST",
+            //         CURLOPT_POSTFIELDS => json_encode($data)
+            //     )
+            // );
 
-            $response = curl_exec($curl);
+            // $response = curl_exec($curl);
 
-            curl_close($curl);
-            echo $response;
+            // curl_close($curl);
+            // echo $response;
 
             $respon = [
                 'status' => "success",
