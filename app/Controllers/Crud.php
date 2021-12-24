@@ -26,11 +26,16 @@ class Crud extends BaseController
     }
     public function save()
     {
-
-        try {
+        // validate input
+        if ($this->pendaftarModel->where('nik', $this->request->getVar('nik'))->countAllResults() > 0) {
+            session()->setFlashdata('warning', 'NIK sudah terdaftar');
+            $respon = [
+                'status' => "failed",
+                'message' => 'NIK sudah terdaftar'
+            ];
+        } else {
             $id = $this->request->getPost('nik');
             $this->pendaftarModel->insert(
-
                 [
                     'no_daftar' => 'PPDB2021',
                     'nik' => $this->request->getVar('nik'),
@@ -44,43 +49,45 @@ class Crud extends BaseController
                 ]
 
             );
+            $token = $this->deviceModel->where('status', 1)->get()->getResultArray();
             $nyariid = $this->pendaftarModel->find($id);
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://hp.fonnte.com/api/send_message.php",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => array(
-                    'phone' => $this->request->getVar('no_hp'),
-                    'type' => 'text',
-                    'text' => 'Halo ' . $this->request->getVar('nama_lengkap') . ' Selamat Anda Telah Terdaftar di PPDB 2021 Dengan Nomor Pendaftaran : PPDB2021' . $nyariid['id'],
-                    'delay' => '1',
-                    'schedule' => '0'
-                ),
-                CURLOPT_HTTPHEADER => array(
-                    "Authorization: hkgSE5jKqxJ6zr3gHo7g"
-                ),
-            ));
-
-            $response = curl_exec($curl);
 
 
-            curl_close($curl);
-            echo $response;
-            sleep(1); #do not delete!
+            // $data = [
+            //     'api_key' => $token[0]['device_id'],
+            //     'sender'  => $token[0]['no_hp'],
+            //     'number'  => $this->request->getVar('no_hp'),
+            //     'message' => 'Halo ' . $this->request->getVar('nama_lengkap') . ' Selamat Anda Telah Terdaftar di PPDB 2021 Dengan Nomor Pendaftaran : PPDB2021' . $nyariid['id'],
+            // ];
 
-            session()->setFlashdata('pesan', 'Data Berhasil Dikirim');
-            // return redirect()->to('/');
-        } catch (\Throwable $th) {
-            session()->setFlashdata('failed', $th->getMessage());
-            // return redirect('/');
+            // $curl = curl_init();
+            // curl_setopt_array(
+            //     $curl,
+            //     array(
+            //         CURLOPT_URL => "https://wb.irfans.my.id/api/send-message.php",
+            //         CURLOPT_RETURNTRANSFER => true,
+            //         CURLOPT_ENCODING => "",
+            //         CURLOPT_MAXREDIRS => 10,
+            //         CURLOPT_TIMEOUT => 0,
+            //         CURLOPT_FOLLOWLOCATION => true,
+            //         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            //         CURLOPT_CUSTOMREQUEST => "POST",
+            //         CURLOPT_POSTFIELDS => json_encode($data)
+            //     )
+            // );
+
+            // $response = curl_exec($curl);
+
+            // curl_close($curl);
+            // echo $response;
+
+            $respon = [
+                'status' => "success",
+                'message' => 'Pendaftaran Berhasil'
+            ];
         }
+
+        return $this->response->setJSON($respon);
     }
     public function updatejurusan()
     {
@@ -179,7 +186,7 @@ class Crud extends BaseController
             'rt' => $this->request->getVar('rt'),
             'rw' => $this->request->getVar('rw'),
             'provinsi' => ucwords($this->request->getVar('provinsi')),
-            'kota' => ucwords($this->request->getVar('kota')),
+            'kabupaten' => ucwords($this->request->getVar('kota')),
             'kecamatan' => ucwords($this->request->getVar('kecamatan')),
             'desa' => ucwords($this->request->getVar('desa')),
             'kode_pos' => $this->request->getVar('kodepos'),

@@ -8,6 +8,7 @@ use App\Models\SettingModel;
 use App\Models\KontakModel;
 use App\Models\PengumumanModel;
 use Dompdf\Dompdf;
+use CodeIgniter\HTTP\Request;
 
 
 class Web extends BaseController
@@ -36,6 +37,24 @@ class Web extends BaseController
 
         return redirect()->to(base_url('home'));
     }
+    public function homes()
+    {
+        $data['setting'] = $this->settingModel->find(1);
+        $data['kuota'] = $this->jurusanModel->findAll();
+        $data['syarat'] = $this->settingModel->find(1);
+        $data['count'] = $this->pendaftarModel->countAll();
+        $data['kontak'] = $this->kontakModel->findAll();
+        $builder = $this->pendaftarModel->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $data['sekolah'] = array();
+        $data['jumlah'] = array();
+        $data['jml_jurusan'] = $this->jurusanModel->countAllResults();
+        $data['jml_sekolah'] = $this->pendaftarModel->distinct(true)->select('asal_sekolah')->countAllResults();
+        foreach ($builder as $sekola) {
+            array_push($data['sekolah'], $sekola['asal_sekolah']);
+            array_push($data['jumlah'], $this->pendaftarModel->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+        }
+        return view('web/homes', $data);
+    }
     public function home()
     {
 
@@ -44,25 +63,24 @@ class Web extends BaseController
         $data['syarat'] = $this->settingModel->find(1);
         $data['count'] = $this->pendaftarModel->countAll();
         $data['kontak'] = $this->kontakModel->findAll();
-        $db = \Config\Database::connect();
-        $builder = $db->table('daftar')->distinct(true)->select('asal_sekolah')->get()->getResultArray();
+        $builder = $this->pendaftarModel->distinct(true)->select('asal_sekolah')->get()->getResultArray();
         $data['sekolah'] = array();
         $data['jumlah'] = array();
         foreach ($builder as $sekola) {
             array_push($data['sekolah'], $sekola['asal_sekolah']);
-            array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
+            array_push($data['jumlah'], $this->pendaftarModel->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
         }
-        return view('web/home', $data);
+        return view('web/index', $data);
     }
     public function pendaftaran()
     {
         $data['setting'] = $this->settingModel->find(1);
-
         $data['jurusan'] = $this->jurusanModel->findAll();
         $data['count'] = $this->pendaftarModel->countAll();
         $data['pendaftaran'] = $this->settingModel->find(1);
         $data['kontak'] = $this->kontakModel->findAll();
         $data['kuota'] = 0;
+        $data['ip'] = $this->request->getIPAddress();
         foreach ($this->jurusanModel->findAll() as $key) {
             $data['kuota'] = $data['kuota'] + $key['kuota'];
         }
@@ -91,7 +109,6 @@ class Web extends BaseController
         $sekolah = new SettingModel();
         $data['siswa'] = $pendaftar->find($id);
         $data['setting'] = $sekolah->find(1);
-        // $filename = date('y-m-d-H-i-s') . '-qadr-labs-report';
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf(['isRemoteEnabled' => false]);
@@ -106,8 +123,6 @@ class Web extends BaseController
         // output the generated pdf
         $dompdf->stream($filename, array("Attachment" => 0));
         exit();
-
-        // return redirect()->to('/');
     }
     public function getsekolah()
     {
@@ -119,6 +134,5 @@ class Web extends BaseController
             array_push($data['sekolah'], $sekola['asal_sekolah']);
             array_push($data['jumlah'], $db->table('daftar')->where('asal_sekolah', $sekola['asal_sekolah'])->countAllResults());
         }
-        dd($data);
     }
 }

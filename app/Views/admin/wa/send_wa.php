@@ -24,6 +24,8 @@ if (session()->getFlashdata('sukses')) :
                 <div class="alert alert-info" role="alert">
                     <strong>Template Kirim Pesan Dinamis</strong><br>
                     <button class="btn btn-sm" id="btnnama">{{nama}}</button>
+                    <button class="btn btn-sm" id="btnnik">{{nik}}</button>
+                    <button class="btn btn-sm" id="btnnodaftar">{{no_pendaftaran}}</button>
                     <button class="btn btn-sm" id="btnasal">{{asal_sekolah}}</button>
                     <button class="btn btn-sm" id="btnsekolah">{{nama_sekolah}}</button>
                     <button class="btn btn-sm" id="btnalamat">{{alamat_sekolah}}</button>
@@ -65,6 +67,11 @@ if (session()->getFlashdata('sukses')) :
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>*Jangan terlalu sering menggunakan fitur ini untuk menghindari nomor anda di blokir oleh WhatsApp</p>
+                        </div>
+                    </div>
             </div>
 
             </form>
@@ -78,6 +85,12 @@ if (session()->getFlashdata('sukses')) :
     $('#btnnama').click(function() {
         $('#pesan').val($('#pesan').val() + '{{nama}}');
     });
+    $('#btnnik').click(function() {
+        $('#pesan').val($('#pesan').val() + '{{nik}}');
+    });
+    $('#btnnodaftar').click(function() {
+        $('#pesan').val($('#pesan').val() + '{{no_pendaftaran}}');
+    });
     $('#btnasal').click(function() {
         $('#pesan').val($('#pesan').val() + '{{asal_sekolah}}');
     });
@@ -87,34 +100,6 @@ if (session()->getFlashdata('sukses')) :
     });
     $('#btnalamat').click(function() {
         $('#pesan').val($('#pesan').val() + '{{alamat_sekolah}}');
-    });
-    $.ajax({
-        type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "mod_whatsapp/crud_pesan.php?pg=get_kontak", // Isi dengan url/path file php yang dituju
-        // data yang akan dikirim ke file yang dituju
-        success: function(response) { // Ketika proses pengiriman berhasil
-            $("#coba").html(response);
-
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
-    $("#status").change(function() {
-        var valu = $(this).val();
-        console.log(valu);
-        $.ajax({
-            type: "POST", // Method pengiriman data bisa dengan GET atau POST
-            url: "mod_whatsapp/crud_pesan.php?pg=get_kontak", // Isi dengan url/path file php yang dituju
-            data: "status=" + valu, // data yang akan dikirim ke file yang dituju
-            success: function(response) { // Ketika proses pengiriman berhasil
-                $("#coba").html(response);
-                // console.log(response);
-            },
-            error: function(xhr, status, error) {
-                console.log(error);
-            }
-        });
     });
 </script>
 

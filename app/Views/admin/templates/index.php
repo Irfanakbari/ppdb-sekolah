@@ -146,7 +146,7 @@
       </div>
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; <?= date('Y') ?> HABIB PPDB <div class="bullet"></div> Template By <a href="https://nauval.in/">Stisla</a>
+          Copyright &copy; <?= date('Y') ?> <?= $sekolah['nama_sekolah'] ?> <div class="bullet"></div> Template By <a href="https://nauval.in/">Stisla</a>
         </div>
         <div class="footer-right">
 

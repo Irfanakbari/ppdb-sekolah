@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Habib</title>
+    <title><?= $setting['nama_sekolah'] ?></title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url() ?>/assets/modules/bootstrap/css/bootstrap.min.css">
@@ -36,18 +36,19 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: url('assets/img/spinner-primary.svg') 50% 50% no-repeat rgb(249, 249, 249);
-            opacity: .9;
+            background: url('assets/img/spinner-primary.svg') 50% 50% no-repeat black;
+            opacity: 1;
         }
     </style>
 </head>
 
 <body class="layout-3">
+    <div class='loader'></div>
     <!-- <div class='loader'></div> -->
     <div class="chating" style=" z-index: 99999; width: 50px; padding: 15px;  bottom: 0; position: fixed; ">
         <a target="_blank" href="https://api.whatsapp.com/send?phone=+62<?= $setting['nolivechat'] ?>&text=<?= $setting['livechat'] ?>">
 
-            <img src="<?= base_url() ?>/assets/img/wa.png" width="150"> </a>
+            <img src="<?= base_url() ?>/assets/img/wa.png" width="50"> </a>
     </div>
     <div id="app">
         <div class="main-wrapper container">
@@ -57,16 +58,7 @@
                     <img src="<?= base_url() ?>/img/<?= $setting['logo'] ?>" width="50"> <?= $setting['nama_sekolah'] ?>
                 </a>
                 <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
-                <!-- <div class="nav-collapse">
-                    <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active"><a href="#" class="nav-link">Application</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Report Something</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Server Status</a></li>
-                    </ul>
-                </div> --> -->
+
 
 
             </nav>
@@ -75,16 +67,16 @@
                 <div class="container">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="<?= base_url() ?>" class="nav-link klikmenu" data-id="beranda"><i class="fas fa-home"></i><span>Home</span></a>
+                            <a id="homes" href="#" class="nav-link klikmenu" data-id="homes"><i class="fas fa-home"></i><span>Home</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link klikmenu " data-id="pendaftaran"><i class="fas fa-heart"></i><span>Daftar Sekarang</span></a>
+                            <a id="daftar" href="#" class="nav-link klikmenu " data-id="pendaftaran"><i class="fas fa-heart"></i><span>Daftar Sekarang</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link klikmenu" data-id="daftar"><i class="fas fa-user-friends"></i><span>Data Sudah Daftar</span></a>
+                            <a id="printform" href="#" class="nav-link klikmenu" data-id="printform"><i class="fas fa-print"></i><span>Cetak Formulir</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link klikmenu" data-id="pengumuman"><i class="fas fa-bullhorn"></i><span>Pengumuman</span></a>
+                            <a id="pengumuman" href="#" class="nav-link klikmenu" data-id="pengumuman"><i class="fas fa-bullhorn"></i><span>Pengumuman</span></a>
                         </li>
 
                     </ul>
@@ -94,48 +86,11 @@
 
             <!-- Main Content -->
             <div class="main-content">
-                <section class="section">
-                    <div class="section-header">
-                        <h1>AYO SEGERA DAFTAR KUOTA TERBATAS !</h1>
-                        <div class="section-header-breadcrumb">
-                            <button id="btndaftar" data-id="pendaftaran" type="button" class="klikmenu btn btn-danger animated infinite pulse delay-2s">DAFTAR SEKARANG</button> &nbsp;
-                            <!-- <button id="btnmasuk" data-id="login" type="button" class="klikmenu btn btn-primary">MASUK KE WEB</button> -->
-                        </div>
-                    </div>
 
-                    <div class="section-body ">
-                        <?php
-                        if (session()->getFlashdata('pesan')) :
-                        ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?= session()->getFlashdata('pesan'); ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <?php endif; ?>
-                        <?php
-                        if (session()->getFlashdata('failed')) :
-                        ?>
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                <?= session()->getFlashdata('failed'); ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        <?php endif; ?>
-
-
-                        <div id='isi_load'></div>
-
-
-
-                    </div>
-                </section>
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; <?= date('Y') ?> Habib School <div class="bullet"></div> Design By <a href="https://nauval.in/">Stisla</a>
+                    Copyright &copy; <?= date('Y') ?> <?= $setting['nama_sekolah'] ?> <div class="bullet"></div> Template By <a href="#">Stisla</a>
                 </div>
                 <div class="footer-right">
 
@@ -174,37 +129,45 @@
 
     <script type="text/javascript">
         $('.loader').fadeOut('slow');
-
-
-        // Set up FlipDown
-
-
-
-        $(document).ready(function() {
-            $('.klikmenu').click(function() {
-                var menu = $(this).data('id');
-                if (menu == "beranda") {
-                    $('#btndaftar').show();
-                    $('#isi_load').load('<?= base_url() ?>/');
-                } else if (menu == "pendaftaran") {
-                    $('#btndaftar').hide();
-                    $('#isi_load').load('<?= base_url() ?>/web/pendaftaran');
-                } else if (menu == "daftar") {
-                    $('#isi_load').load('datadaftar.php');
-                } else if (menu == "pengumuman") {
-                    $('#isi_load').load('<?= base_url() ?>/web/pengumuman');
-                } else if (menu == "login") {
-                    $('#isi_load').load('login.php');
+        $(document).on('click', '.klikmenu', function() {
+            var id = $(this).data('id');
+            $('.loader').fadeIn('fast');
+            $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    if (id == 'homes') {
+                        $('.main-content').load('<?= base_url() ?>/homes');
+                    } else if (id == 'pendaftaran') {
+                        $('.main-content').load('<?= base_url() ?>/pendaftaran');
+                    } else if (id == 'printform') {
+                        console.log('formulir');
+                        $('.main-content').load('<?= base_url() ?>/cetakformulir');
+                    } else if (id == 'pengumuman') {
+                        // $('.main-content').html(data);
+                        $('.main-content').load('<?= base_url() ?>/pengumuman');
+                    }
+                    $('.loader').fadeOut('slow');
+                },
+                error: function(data) {
+                    alert('error');
                 }
             });
-
-
-            // halaman yang di load default pertama kali
-            $('#isi_load').load('<?= base_url() ?>/web/home');
-
         });
+
+        // halaman yang di load default pertama kali
+        $('.main-content').load('<?= base_url() ?>/web/homes');
     </script>
-    <!-- <a href="#" class="ignielToTop"></a> -->
+    <script>
+        // change navbar-bg color
+        var navbar = $('.navbar-bg');
+        var primary = $('.bg-primary');
+        // change color css
+        var color = '#008c5f';
+        navbar.css('background-color', color);
+        primary.css('background-color', color);
+    </script>
+
 </body>
 
 </html>

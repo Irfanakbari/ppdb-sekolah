@@ -1,5 +1,7 @@
 <?php
 
+
+// Not Use, this is future project for auto get location 
 namespace App\Controllers;
 
 use App\Models\PendaftarModel;
