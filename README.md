@@ -65,7 +65,7 @@ Operator/Admin Sekolah :
 
 ## Note
 
-Aplikasi ini mungkin masih terdapat bug atau kekurangan di beberapa bagian, silahkan hubungi saya atau jika ingin berkontribusi. Aplikasi ini gratis dan bebas untuk digunakan ataupun dimodifikasi ulang namun tidak untuk dijual kembali.
+Aplikasi ini mungkin masih terdapat bug atau kekurangan di beberapa bagian. Aplikasi ini bebas untuk digunakan ataupun dimodifikasi ulang namun tidak untuk dijual.
 
 ## Referensi 
 - Candy PPDB for UI
