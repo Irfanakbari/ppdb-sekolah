@@ -10,7 +10,6 @@ Screenshot Tampilah Web Visitor :
 
 ![alt text](https://i.ibb.co/RTG9zBw/Web-capture-18-12-2021-74040-localhost.jpg)
 
-
 ## Fitur
 
 - Dibangun menggunakan Framework Terbaru Codeigniter 4
@@ -24,6 +23,7 @@ Screenshot Tampilah Web Visitor :
 - Cegah Duplikasi pendaftarn berdasakan NIK
 
 User atau Pendaftar :
+
 - Rincian pendaftar, data jurusan, sisa kuota
 - Rincian jumlah pendaftar berdasarkan asal sekolah
 - Informasi pendaftaran, kontak pendaftaran, syarat pendaftaran
@@ -33,6 +33,7 @@ User atau Pendaftar :
 - Download formulir dalam format PDF
 
 Operator/Admin Sekolah :
+
 - Edit User dan ubah status menjadi Diterima/Pending
 - Melihat rincian pendaftar berdasarkan sekolah, jurusan (coming soon), jenis kelamin
 - Input jurusan dan kuota
@@ -67,14 +68,12 @@ Operator/Admin Sekolah :
 
 Aplikasi ini mungkin masih terdapat bug atau kekurangan di beberapa bagian. Aplikasi ini bebas untuk digunakan ataupun dimodifikasi ulang namun tidak untuk dijual.
 
-## Referensi 
+## Referensi
+
 - Candy PPDB for UI
 - Codeigniter Documentation
 - JQuery Documentation
 - Stackoverflow
 - Youtube [Web Programming UNPAS](https://www.youtube.com/channel/UCkXmLjEr95LVtGuIm3l2dPg)
-- Grup [Codeigniter Indonesia](https://web.facebook.com/groups/codeigniter.id) 
+- Grup [Codeigniter Indonesia](https://web.facebook.com/groups/codeigniter.id)
 - dll
-
-
-
