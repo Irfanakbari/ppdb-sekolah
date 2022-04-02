@@ -37,7 +37,7 @@ jobs:
           # The remote path
           remote_path: /home/kanadeex/public_html/ppdb
           # The remote host
-          remote_host: ppdb.kanadee.xyz
+          remote_host: 103.55.39.44
           # The remote port
           remote_port: 423
           # The remote user
