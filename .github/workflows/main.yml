@@ -25,23 +25,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Rsync Deployments Action
-        # You may pin to the exact commit or the version.
-        # uses: Burnett01/rsync-deployments@0dc935cdecc5f5e571865e60d2a6cdc673704823
-        uses: Burnett01/rsync-deployments@5.2
+      - name: ls -a via ssh
+        uses: garygrossgarten/github-action-ssh@release
         with:
-          # The switches
-          switches: -avzr --delete --exclude=".git" --exclude=".github"
-          # The local path
-          path: /
-          # The remote path
-          remote_path: /
-          # The remote host
-          remote_host: 103.55.39.44
-          # The remote port
-          remote_port: 423
-          # The remote user
-          remote_user: kanadeex
-          # The remote key
-          remote_key: ${{ secrets.DEPLOY_KEY }}
-          remote_key_pass: habib18102002
+          command: ls -a
+          host: 103.55.39.44
+          username: kanadeex
+          privateKey: ${{ secrets.DEPLOY_KEY}}
