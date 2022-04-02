@@ -39,7 +39,7 @@ jobs:
           # The remote host
           remote_host: ppdb.kanadee.xyz
           # The remote port
-          remote_port: 22
+          remote_port: 423
           # The remote user
           remote_user: kanadeex
           # The remote key
