@@ -43,6 +43,4 @@ jobs:
           # The remote user
           remote_user: kanadeex
           # The remote key
-          remote_key: ${{secrets.DEPLOY_KEY}}
-          # The remote key passphrase
-          remote_key_pass: habib18102002
+          remote_key: ${{ secrets.DEPLOY_KEY }}
