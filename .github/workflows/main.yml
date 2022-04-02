@@ -37,10 +37,11 @@ jobs:
           # The remote path
           remote_path: /home/kanadeex/public_html/ppdb
           # The remote host
-          remote_host: 103.55.39.44
+          remote_host: kanadee.xyz
           # The remote port
           remote_port: 423
           # The remote user
           remote_user: kanadeex
           # The remote key
           remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_key_pass: habib18102002
